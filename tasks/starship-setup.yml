@@ -1,0 +1,19 @@
+- name: Install Starship
+  apt: name=zsh
+  tags: &tags_for_starship_tasks [ 'install', 'productivity', 'dotfiles', 'starship' ]
+    
+- name: Check that the somefile.conf exists
+  stat:
+    path: /home/theprimeagen/.oh-my-zsh
+  register: oh_my_stats
+  tags: *tags_for_zsh_tasks
+    
+- name: Starship
+  shell: curl -sS https://starship.rs/install.sh | sh -s -- --yes
+  tags: *tags_for_starship_tasks
+  become_user: developer
+
+    #- name: Copy Starship Config
+    #shell:
+    #tags: *tags_for_starship_tasks
+    #become_user: developer
