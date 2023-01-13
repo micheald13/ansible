@@ -1,5 +1,4 @@
 - name: Starship
   tags: &tags_for_starship_tasks [ 'install', 'productivity', 'dotfiles', 'starship' ]
   shell: curl -sS https://starship.rs/install.sh | sh -s -- --yes
-  tags: *tags_for_starship_tasks
   become_user: developer
