@@ -23,3 +23,12 @@
   tags:
     - install
     - core
+
+
+- name: Install Code Quality Tools 4
+  become: true
+  apt:
+    name: ["shellcheck" ]
+  tags:
+    - install
+    - core
