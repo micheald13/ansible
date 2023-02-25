@@ -16,6 +16,7 @@
   tasks:
     - include: tasks/core-setup.yml
     - include: tasks/zsh-setup.yml
+    - include: tasks/cargo.yml
     - include: tasks/starship-setup.yml
     - include: tasks/nvim-setup.yml
     - include: tasks/dotfiles.yml
