@@ -1,7 +1,45 @@
 - name: Install packages
   become: true
   apt:
-    name: [ "tmux", "fzf", "tldr", "ripgrep", "silversearcher-ag" ]
+    name: [ "tmux", "fzf", "tldr", "ripgrep", "silversearcher-ag", "fd-find", "bat" ]
   tags:
     - install
     - productivity
+
+- name: Get exa latest tag
+  github_release:
+    user: ogham
+    repo: exa
+    action: latest_release
+  register: exa_latest
+  tags:
+    - install
+    - productivity
+#
+- name: Grab exa latest binaries
+  unarchive:
+    src: "https://github.com/ogham/exa/releases/download/{{ exa_latest['tag'] }}/exa-linux-x86_64-{{ exa_latest['tag']}}.zip"
+    dest: /tmp
+    remote_src: true
+  tags:
+    - install
+    - productivity
+
+- name: Install exa
+  ansible.builtin.copy:
+    src: /tmp/exa-{{release.tag[1:]}}_linux_amd64/bin/exa
+    dest: ~/.local/bin/
+    mode: a+x
+  become: true
+
+- name: Rename batcat and fdfind 
+  ansible.builtin.file:
+    src: /usr/bin/{{ item.src}}
+    dest: ~/.local/bin/{{item.dest}}
+    state: link
+  loop:
+    - { src: batcat, dest: bat}
+    - { src: fdfind, dest: fd}
+  tags:
+   - install
+   - productivity
