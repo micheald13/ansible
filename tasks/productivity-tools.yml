@@ -15,11 +15,20 @@
   tags:
     - install
     - productivity
-#
+
+- name: Create exa directory
+  ansible.builtin.file:
+    path: /tmp/exa
+    state: directory
+    mode: '0755'
+  tags:
+    - install
+    - productivity
+
 - name: Grab exa latest binaries
   unarchive:
     src: "https://github.com/ogham/exa/releases/download/{{ exa_latest['tag'] }}/exa-linux-x86_64-{{ exa_latest['tag']}}.zip"
-    dest: /tmp
+    dest: /tmp/exa
     remote_src: true
   tags:
     - install
@@ -27,10 +36,19 @@
 
 - name: Install exa
   ansible.builtin.copy:
-    src: /tmp/exa-{{release.tag[1:]}}_linux_amd64/bin/exa
+    src: /tmp/exa/bin/exa
     dest: ~/.local/bin/
     mode: a+x
   become: true
+
+- name: Create .local/bin
+  ansible.builtin.file:
+    path: ~/.local/bin
+    state: directory
+    mode: '0755'
+  tags:
+    - install
+    - productivity
 
 - name: Rename batcat and fdfind 
   ansible.builtin.file:
