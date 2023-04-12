@@ -34,13 +34,6 @@
     - install
     - productivity
 
-- name: Install exa
-  ansible.builtin.copy:
-    src: /tmp/exa/bin/exa
-    dest: ~/.local/bin/
-    mode: a+x
-  become: true
-
 - name: Create .local/bin
   ansible.builtin.file:
     path: ~/.local/bin
@@ -49,6 +42,12 @@
   tags:
     - install
     - productivity
+
+- name: Install exa
+  ansible.builtin.copy:
+    src: /tmp/exa/bin/exa
+    dest: ~/.local/bin/exa
+    mode: a+x
 
 - name: Rename batcat and fdfind 
   ansible.builtin.file:
