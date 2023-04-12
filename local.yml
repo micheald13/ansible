@@ -1,8 +1,7 @@
 - hosts: localhost
   vars:
-    source_key: "./.ssh/id_rsa"
+    source_key: "./ssh/id_rsa"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
-    personal: "{{ lookup('env', 'HOME') }}/personal"
   pre_tasks:
   - name: Update Apt
     become: true
@@ -14,6 +13,7 @@
       - install
       - core
   tasks:
+    - include: tasks/ssh.yml
     - include: tasks/core-setup.yml
     - include: tasks/zsh-setup.yml
     # - include: tasks/cargo.yml
