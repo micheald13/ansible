@@ -1,0 +1,14 @@
+- name: Blackbox
+  git_config:
+    name: user.email
+    scope: global
+    value: "micheal.donohue@blackbox.com"
+  tags:
+  - git
+- name: Git setup name
+  git_config:
+    name: user.name
+    scope: global
+    value: "micheald13"
+  tags:
+  - git
