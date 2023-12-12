@@ -1,7 +1,7 @@
 - name: Install packages
   become: true
   apt:
-    name: [ "tmux", "fzf", "tldr", "ripgrep", "silversearcher-ag", "fd-find", "bat" ]
+    name: [ "tmux", "tldr", "ripgrep", "silversearcher-ag", "fd-find", "bat" ]
   tags:
     - install
     - productivity
